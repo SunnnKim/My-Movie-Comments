@@ -55,7 +55,7 @@ public class MemberViewer { // = userViewer
 		System.out.println("-------------------");
 		System.out.println("   Find ID / PW");
 		System.out.println("-------------------");
-		System.out.println("1.Id  2.PW  3.back to Main");
+		System.out.println("1.Id  2.PW  3.Main");
 		System.out.print(">>>>> ");
 		int choice = sc.nextInt();
 		sc.nextLine();
@@ -72,8 +72,11 @@ public class MemberViewer { // = userViewer
 		System.out.println("===========================");
 		System.out.println(" 1. LogIn 2. Join 3. Exit");
 		System.out.print(">>>>>>  ");
-		choice = sc.nextInt();
-		sc.nextLine();
+		try {
+			choice = Integer.parseInt(sc.nextLine());			
+		} catch (Exception e) {
+			choice = -1;
+		}
 		return choice;
 		
 	}
@@ -91,9 +94,8 @@ public class MemberViewer { // = userViewer
 	public int showProfileMenu(Scanner sc, int choice){
 		System.out.println("-----------------------------------");
 		System.out.println("1. Change Info ");
-		System.out.println("2. My Comments ");
-		System.out.println("3. Delete My Account");
-		System.out.println("4. Back");
+		System.out.println("2. Delete My Account");
+		System.out.println("3. Back");
 		System.out.print(">>>> ");
 		choice = sc.nextInt();
 		sc.nextLine();

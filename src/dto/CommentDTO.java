@@ -8,13 +8,13 @@ public class CommentDTO {
 	
 	private int id;
 	private int writerId;
+	private int movieId;	
 	private String title;	// 입력값 
 	private String contents;	//입력값
 	private String stars;		//입력값 
 	private String writerName;
 	private Calendar writtenTime;
 	private Calendar updatedTime;
-	private MovieDTO movie;		//입력값 
 	
 	
 	public int getId() {
@@ -70,13 +70,13 @@ public class CommentDTO {
 	public void setUpdatedTime(Calendar updatedTime) {
 		this.updatedTime = updatedTime;
 	}
-	public MovieDTO getMovie() {
-		return movie;
+	public int getMovieId() {
+		return movieId;
 	}
-	public void setMovie(MovieController mController, int id) {
-		this.movie = mController.selectAll().get(id);
-		
+	public void setMovieId(int movieId) {
+		this.movieId = movieId;
 	}
+
 	
 	
 	

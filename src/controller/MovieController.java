@@ -18,7 +18,6 @@ public class MovieController {
 		m0.setLength(106);
 		m0.setGanre("Action");
 		
-		list.add(m0);
 		
 		MovieDTO m1 = new MovieDTO();
 		m1.setId(1);
@@ -90,18 +89,39 @@ public class MovieController {
 public void printMovies() {
 		
 		ArrayList<MovieDTO> list = selectAll();
-		System.out.println("===================================");
-		System.out.println("           All Movie List");
-		System.out.println("===================================");
+		System.out.println("============================");
 		
-		System.out.printf("%10s\t%6s\t%s\n","Name","Length","Ganre");
-		System.out.println("-----------------------------------");
+		System.out.printf(" %s\t%10s\n","No.","Name");
+		System.out.println("-----------------------------");
 		for(MovieDTO m : list) {
-			System.out.printf("%10s\t%4d\t%s\n",m.getName(),m.getLength(),m.getGanre());
+			System.out.printf(" %d\t%8s\n",m.getId(), m.getName());
 		}
+		System.out.println("-----------------------------");
 	}
 
-
+public MovieDTO selectOne(int id) {
 	
+	for(MovieDTO m : list) {
+		if(m.getId() == id) {
+			return m;
+		}
+	}
+	
+	return null;
+}
+
+public void showMovieInfo(MovieDTO m) {
+	
+	System.out.println("========================");
+	System.out.println("   [  "+m.getName() +"  ] ");
+	System.out.println("  I  D   : " + m.getId());
+	System.out.println("  Length : " + m.getLength()+" min");
+	System.out.println("  Ganre  : " + m.getGanre());
+	System.out.println("------------------------");
+	
+	
+}
+	
+
 	
 }
