@@ -19,7 +19,7 @@ public class UserController {
 		admin.setUserId("admin");
 		admin.setPasssword("admin");
 		admin.setName("admin");
-		admin.setJumin("123456");
+		admin.setJumin("000000");
 
 		UserDTO user1 = new UserDTO();
 		user1.setId(1); // 관리 id값은 0
@@ -66,7 +66,6 @@ public class UserController {
 		m.setId(id);	//id - auto increment
 		System.out.println("+++++++++++++++");
 		System.out.print("*   I  D   :");
-		sc.nextLine();
 		m.setUserId(sc.nextLine());
 		System.out.print("* PASSWORD :");
 		m.setPasssword(sc.nextLine());
@@ -83,8 +82,6 @@ public class UserController {
 	//아이디로 찾기 
 	public void findMyId(Scanner sc) {
 		
-		sc.nextLine();
-	
 		System.out.println("==== Find Id ====");
 		System.out.print(" Name? : ");
 		String name = sc.nextLine();
@@ -105,37 +102,40 @@ public class UserController {
 
 	// 아이디 및 패스워드로 찾기 
 	public void findMyPw(Scanner sc) {
-		sc.nextLine();
-		
+
 		System.out.println("==== Find Pw ====");
 		System.out.print(" I D ? : ");
 		String userID = sc.nextLine();
 		System.out.print(" Jumin ? : ");
 		String jumin = sc.nextLine();
 		for( UserDTO uDTO : list ) {
-			if( uDTO.getJumin().equals(jumin) && uDTO.getUserId().equals(userID)) {
-				System.out.println("========================");
-				System.out.println(" I D  : " + uDTO.getUserId());
-				System.out.println(" P W  : " + uDTO.getPasssword());
+			if(uDTO.getJumin().equals(jumin) && uDTO.getUserId().equals(userID)) {
+				System.out.println("===========================");
+				System.out.println("  I D  : " + uDTO.getUserId());
+				System.out.println("  P W  : " + uDTO.getPasssword());
 				return;
 			}
 			
 		
 
+		}
 		System.out.println("====================");
 		System.out.println(" Wrong Infomation !!");
 		System.out.println("====================");
 		
-		}
 		
 	}
 	
 	
 	public void updateProfile(UserDTO userDTO) {
-		System.out.println("update profile 접근!");
+
+		list.set(list.indexOf(userDTO),userDTO);
 		
 		
 		
+	}
+	public void delete(UserDTO u) {
+		list.remove(u);
 	}
 	
 	

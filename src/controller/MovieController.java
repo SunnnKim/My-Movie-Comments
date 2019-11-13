@@ -76,6 +76,20 @@ public class MovieController {
 	
 	// 영화 목록보기
 	public ArrayList<MovieDTO> selectAll() {
+
+		return list;
+		
+	}
+
+
+	public void insert(MovieDTO m) {
+		list.add(m);
+		
+	}
+	
+public void printMovies() {
+		
+		ArrayList<MovieDTO> list = selectAll();
 		System.out.println("===================================");
 		System.out.println("           All Movie List");
 		System.out.println("===================================");
@@ -85,17 +99,9 @@ public class MovieController {
 		for(MovieDTO m : list) {
 			System.out.printf("%10s\t%4d\t%s\n",m.getName(),m.getLength(),m.getGanre());
 		}
-		return list;
-		
 	}
 
-	public void insert(MovieDTO m) {
-		list.add(m);
-		
-	}
-	
-	
-	
+
 	
 	
 }

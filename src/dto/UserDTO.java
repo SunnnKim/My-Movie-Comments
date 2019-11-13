@@ -15,10 +15,7 @@ public class UserDTO {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
 	public int getId() {
-		
 		return id;
 	}
 	public void setId(int id) {
@@ -42,6 +39,7 @@ public class UserDTO {
 	public void setJumin(String jumin) {
 		this.jumin = jumin;
 	}
+	
 	
 	
 	
