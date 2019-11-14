@@ -7,14 +7,14 @@ import dto.UserDTO;
 
 public class MemberViewer { // = userViewer 
 
-	// 로그인과 관련된 메소드들
+	// 로그인 + 회원정보와 관련된 메소드들
 
 	// 로그인 하기
 	public UserDTO logIn(Scanner sc, UserController uController) {
 		// 아이디 + 패스워드 맞으면
 		// list에 들어있는 UserDTO 반환
 		// 없으면 Null 반환
-		System.out.println("+++LOG IN+++");
+		System.out.println("+++ LOG IN +++");
 		System.out.print("*  I    D  : ");
 		String inputId = sc.nextLine();
 		System.out.print("* PASSWORD : ");
@@ -83,33 +83,58 @@ public class MemberViewer { // = userViewer
 	
 	// 로그인 후 메인화면 출력 메세지 
 	public int showMainMenu(Scanner sc,int choice) {
-		System.out.println("-----------------------------------");
-		System.out.println("1.Movie List  2.My profile 3.Log Out");
-		System.out.print(">>>>>>");
-		choice = sc.nextInt();
-		sc.nextLine();
+		System.out.println("-------------------------------");
+		System.out.println("1. Movie & Comment");
+		System.out.println("2. My Profile");
+		System.out.println("3. Log Out");
+		System.out.print(">>> ");
+		try {
+			choice = sc.nextInt();			
+		} catch (Exception e) {
+			choice = -1;
+		}
 		return choice;
 	}
 	// 회원정보 목록 출력 메세지 
-	public int showProfileMenu(Scanner sc, int choice){
-		System.out.println("-----------------------------------");
+	public int showProfileMenu(Scanner sc, int choice, UserDTO logInUser){
+		
+		System.out.println(" \""+logInUser.getName()+"\"'s Profile");
+		System.out.println("  I D   : " + logInUser.getUserId());
+		System.out.println("  P W   : " + logInUser.getPasssword());
+		System.out.println("  Name  : " + logInUser.getName());
+		System.out.println("  Jumin : " + logInUser.getJumin());
+		System.out.println("-------------------------------");
 		System.out.println("1. Change Info ");
 		System.out.println("2. Delete My Account");
 		System.out.println("3. Back");
 		System.out.print(">>>> ");
-		choice = sc.nextInt();
-		sc.nextLine();
+		try {
+			choice = Integer.parseInt(sc.nextLine());			
+		} catch (Exception e) {
+			choice = -1;
+		}
 		return choice;
 	}
-	public void update(UserController uController, UserDTO logInUser, Scanner sc) {
+	public UserDTO update(UserController uController, UserDTO logInUser, Scanner sc) {
 		
 		System.out.println("*** UPDATE MY PROFILE ***");
-		System.out.println("  N a m e : ");
+		System.out.print(" Name : ");
 		logInUser.setName(sc.nextLine());
-		System.out.println(" Password : ");
-		logInUser.setPasssword(sc.nextLine());
+		System.out.print(" Password : ");
+		String password = sc.nextLine();
+		while (true) {
+			if (!password.matches("^[a-z0-9]*{4,15}$")) {
+				System.out.println("! PW must contain letter & number (length : 4~15) !");
+				System.out.print("* PASSWORD :");
+				password = sc.nextLine();
+			} else
+				break;
+		}
+		logInUser.setPasssword(password);
+		System.out.println("");
 		uController.updateProfile(logInUser);
 		System.out.println("* Profile Updated *");
+		return logInUser;
 	}
 	
 	

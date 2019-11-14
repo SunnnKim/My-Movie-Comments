@@ -89,14 +89,14 @@ public class MovieController {
 public void printMovies() {
 		
 		ArrayList<MovieDTO> list = selectAll();
-		System.out.println("============================");
+		System.out.println("===============================");
 		
 		System.out.printf(" %s\t%10s\n","No.","Name");
-		System.out.println("-----------------------------");
+		System.out.println("-------------------------------");
 		for(MovieDTO m : list) {
 			System.out.printf(" %d\t%8s\n",m.getId(), m.getName());
 		}
-		System.out.println("-----------------------------");
+		System.out.println("-------------------------------");
 	}
 
 public MovieDTO selectOne(int id) {
@@ -112,12 +112,12 @@ public MovieDTO selectOne(int id) {
 
 public void showMovieInfo(MovieDTO m) {
 	
-	System.out.println("========================");
-	System.out.println("   [  "+m.getName() +"  ] ");
-	System.out.println("  I  D   : " + m.getId());
-	System.out.println("  Length : " + m.getLength()+" min");
-	System.out.println("  Ganre  : " + m.getGanre());
-	System.out.println("------------------------");
+	System.out.println("  ========================");
+	System.out.println("     [  "+m.getName() +"  ] ");
+	System.out.println("    I  D   : " + m.getId());
+	System.out.println("    Length : " + m.getLength()+" min");
+	System.out.println("    Ganre  : " + m.getGanre());
+	System.out.println("  ------------------------");
 	
 	
 }

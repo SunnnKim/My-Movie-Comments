@@ -21,6 +21,7 @@ public class CommentController {
 		c1.setId(0);
 		c1.setWriterId(0);
 		c1.setMovieId(0);
+		c1.setPrintId(0);
 		c1.setTitle("Best Movie ever!");
 		c1.setContents("first comment for test.");
 		c1.setStars(5); // 숫자 입력하면 자동으로 별찍어주는 메소드로 구현하기
@@ -32,6 +33,7 @@ public class CommentController {
 		c2.setId(1);
 		c2.setWriterId(1);
 		c2.setMovieId(0);
+		c1.setPrintId(1);
 		c2.setTitle("TEST TITLE 2");
 		c2.setContents("second comment for test.");
 		c2.setStars(3); // 숫자 입력하면 자동으로 별찍어주는 메소드로 구현하기
@@ -43,6 +45,7 @@ public class CommentController {
 		c3.setId(2);
 		c3.setWriterId(0);
 		c3.setMovieId(2);
+		c1.setPrintId(2);
 		c3.setTitle("TEST TITLE 3");
 		c3.setContents("third comment for test.");
 		c3.setStars(1); // 숫자 입력하면 자동으로 별찍어주는 메소드로 구현하기
@@ -61,68 +64,105 @@ public class CommentController {
 	}
 
 	// 새로운 코멘트 추가하기
-	public void write(CommentDTO c, UserDTO logInUser,MovieDTO m) {
-		
-		int id = list.get(list.size()-1).getId()+1;
-		
+	public void write(CommentDTO c, UserDTO logInUser, MovieDTO m) {
+
+		int id = list.get(list.size() - 1).getId() + 1;
 		c.setId(id);
+		id = logInUser.getId();
 		c.setWriterId(logInUser.getId());
+		c.setPrintId(0);
 		c.setWriterName(logInUser.getName());
 		c.setWrittenTime(Calendar.getInstance());
 		c.setUpdatedTime(Calendar.getInstance());
 		c.setMovieId(m.getId());
+		
 		list.add(c);
 
 	}
-	//코멘트 하나보기
+
+	// 코멘트 하나보기
 	public CommentDTO selectOne(int id, ArrayList<CommentDTO> commentMovieList) {
-		
+
 		for (CommentDTO c : commentMovieList) {
-			if(c.getId() == id) {
+			if (c.getId() == id) {
 				return c;
 			}
 		}
 		return null;
 	}
 	
-	//영화에 따른 코멘트 보기 
-	public ArrayList<CommentDTO> selectCommentByMovie(MovieDTO selectedMovie){
+	public CommentDTO selectByMyComment(int id, ArrayList<CommentDTO>  myComment) {
 		
-		ArrayList<CommentDTO> commentMovieList = new ArrayList<CommentDTO>();
-		int i = 0;
-		for(CommentDTO c : list) {
-			//코멘트의 번호 다시정하기
-			if(selectedMovie.getId() == c.getMovieId()) {
-				c.setId(i);
-				commentMovieList.add(c);
-				System.out.println("["+commentMovieList.get(i).getId()+"] \""+ 
-						commentMovieList.get(i).getTitle()+"\" by "+ commentMovieList.get(i).getWriterName());
-				i++;
-			}}
-	
-			
-			
-			//return commentListByMovie;
-		return commentMovieList;
-		
-		
+		for(CommentDTO c : myComment) {
+			if(c.getPrintId() == id) {
+				return c;
+			}
+		}return null;
 		
 	}
+
+	// 영화에 따른 코멘트 보기
+	public ArrayList<CommentDTO> selectCommentByMovie(MovieDTO selectedMovie,UserController uController) {
+
+		ArrayList<CommentDTO> commentMovieList = new ArrayList<CommentDTO>();
+		int i = 0;
+		String userName ="";
+		for (CommentDTO c : list) {
+			// 코멘트의 번호 다시정하기
+			if (selectedMovie.getId() == c.getMovieId()) {
+				c.setId(i);
+				userName = uController.selectAll().get(i).getName();
+				commentMovieList.add(c);
+				System.out.println("[" + commentMovieList.get(i).getId() + "] \"" + commentMovieList.get(i).getTitle()
+						+ "\" by " + userName);
+				i++;
+			}
+		}
+
+		// return commentListByMovie;
+		return commentMovieList;
+
+	}
+
 	public void update(CommentDTO cDTO) {
-		
+
 		cDTO.setUpdatedTime(Calendar.getInstance());
-		for(int i =0; i < list.size(); i++ ) {
-			if(cDTO.getId() == list.get(i).getId()) {
-				list.set(list.indexOf(cDTO),cDTO);
+		for (int i = 0; i < list.size(); i++) {
+			if (cDTO.getId() == list.get(i).getId()) {
+				list.set(list.indexOf(cDTO), cDTO);
+			}
+		}
+
+	}
+
+	public void delete(CommentDTO cDTO) {
+		list.remove(cDTO);
+
+	}
+	
+	//내가쓴 코멘트 모아보기 
+
+	public ArrayList<CommentDTO> selectMyComments(CommentController cController, UserDTO logInUser
+			, MovieController mController) {
+
+		ArrayList<CommentDTO> myComments = new ArrayList<CommentDTO>();
+		MovieDTO m;
+		int i=0;
+		for (CommentDTO c : cController.selectAll()) {
+			if (logInUser.getId() ==  c.getWriterId()) {
+				m = mController.selectOne(c.getMovieId());
+				myComments.add(c);
+				myComments.get(i).setPrintId(i);
+				i++;
 			}
 		}
 		
 		
+		return myComments;
 	}
-	public void delete(CommentDTO cDTO) {
-		list.remove(cDTO);
-		
-	}
-
-
+	
+	
+	
+	
+	
 }

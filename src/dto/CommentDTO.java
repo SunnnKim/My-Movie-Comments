@@ -6,9 +6,10 @@ import controller.MovieController;
 
 public class CommentDTO {
 	
-	private int id;
+	private int id;	// 처음 할당 후 안바뀌는 값 
 	private int writerId;
-	private int movieId;	
+	private int movieId;
+	private int printId;	// 영화별 / 사용자별 코멘트 출력시 사용하는 id값 
 	private String title;	// 입력값 
 	private String contents;	//입력값
 	private String stars;		//입력값 
@@ -48,10 +49,11 @@ public class CommentDTO {
 	// 점수를 넣으면 별로 출력해주는 setter
 	public void setStars(int score) {
 		stars = "";
+		
 		for(int i=1; i<=score ; i++ ) {
 			stars += "★";
-		}
 	}
+		}
 	public String getWriterName() {
 		return writerName;
 	}
@@ -75,6 +77,12 @@ public class CommentDTO {
 	}
 	public void setMovieId(int movieId) {
 		this.movieId = movieId;
+	}
+	public int getPrintId() {
+		return printId;
+	}
+	public void setPrintId(int printId) {
+		this.printId = printId;
 	}
 
 	
