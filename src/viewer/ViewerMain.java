@@ -1,12 +1,9 @@
 package viewer;
 
-import java.util.ArrayList;
 import java.util.Scanner;
-
 import controller.CommentController;
 import controller.MovieController;
 import controller.UserController;
-import dto.CommentDTO;
 import dto.MovieDTO;
 import dto.UserDTO;
 
@@ -26,7 +23,6 @@ public class ViewerMain {
 		System.out.println("===========================");
 		System.out.println("==== My MOVIE COMMENTS ====");
 		program: while (true) {
-
 			choice = mViewer.showLoginMenu(sc, choice);
 			login: if (choice == 1) {
 				// 로그인 + 로그인 후 기능
@@ -67,43 +63,16 @@ public class ViewerMain {
 						} else {
 							System.out.println("! Wrong Access !");
 						}
-						// 영화 선택하기
-
-						// cViewer.showCommentMenu(sc, mController, cController, logInUser);
-						// cViewer.writeComment(sc, cController, logInUser);
-
 					}
-
+					//2. 회원정보 보기 
 					else if (choice == 2) {
-						// 회원정보 보기
-
-						// "1. Change Info 2. My Comments 3. Delete Account 4. back"
-						System.out.print("password ? : ");
-						sc.nextLine();
-						String password = sc.nextLine();
-						if(password.equals(logInUser.getPasssword())) {
-						choice = mViewer.showProfileMenu(sc, choice, logInUser);
-						switch (choice) {
-						case 1:
-							logInUser = mViewer.update(uController, logInUser, sc);
-							break;
-						case 2:
-							// 계정 삭제
-							boolean b = mViewer.delete(logInUser, uController, sc);
-							if (b)
-								break login;
-							break;
-						case 3:
-							// back to main
-							break;
-						default:
-							System.out.println("! Wrong Access !");
-							break;
-
-						}}
-						else {
-							System.out.println("! wrong password !");
+						boolean logOut;
+						logOut = mViewer.showLogInUser(sc, logInUser, mViewer, uController, choice,cController);
+						if(logOut == true) {
+							System.out.println("Account Deleted! ");
+							break login;
 						}
+						
 					} else if (choice == 3) {
 						// 로그아웃
 						System.out.println("=== logged out ===");
@@ -119,11 +88,11 @@ public class ViewerMain {
 			} else if (choice == 2) {
 
 				// 회원가입
-				uController.joinUser(sc);
+				mViewer.joinUser(sc,uController);
 			} else if (choice == 3) {
 				// 프로그램 종료
 				mViewer.exit();
-				break;
+				break program;
 
 			} else { // 잘못된 접근
 				System.out.println("! Wrong Access !");

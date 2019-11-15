@@ -53,7 +53,7 @@ public class CommentViewer {
 		// 선택한 영화의 정보를 띄워준다.
 
 		movieOne: while (true) {
-			mController.showMovieInfo(selectedMovie);
+			showMovieInfo(selectedMovie);
 			System.out.println("1. write comment");
 			System.out.println("2. show comments");
 			System.out.println("3. back");
@@ -294,5 +294,17 @@ public class CommentViewer {
 		System.out.println("-------------------------------");
 
 	}
+	public void showMovieInfo(MovieDTO m) {
+		
+		System.out.println("  ========================");
+		System.out.println("     [  "+m.getName() +"  ] ");
+		System.out.println("    I  D   : " + m.getId());
+		System.out.println("    Length : " + m.getLength()+" min");
+		System.out.println("    Ganre  : " + m.getGanre());
+		System.out.println("  ------------------------");
+		
+		
+	}
+		
 
 }

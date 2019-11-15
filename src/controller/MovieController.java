@@ -110,18 +110,5 @@ public MovieDTO selectOne(int id) {
 	return null;
 }
 
-public void showMovieInfo(MovieDTO m) {
-	
-	System.out.println("  ========================");
-	System.out.println("     [  "+m.getName() +"  ] ");
-	System.out.println("    I  D   : " + m.getId());
-	System.out.println("    Length : " + m.getLength()+" min");
-	System.out.println("    Ganre  : " + m.getGanre());
-	System.out.println("  ------------------------");
-	
-	
-}
-	
-
 	
 }

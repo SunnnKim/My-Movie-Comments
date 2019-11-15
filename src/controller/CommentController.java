@@ -20,12 +20,12 @@ public class CommentController {
 		CommentDTO c1 = new CommentDTO();
 		c1.setId(0);
 		c1.setWriterId(0);
-		c1.setMovieId(0);
+		c1.setMovieId(6);
 		c1.setPrintId(0);
-		c1.setTitle("Best Movie ever!");
-		c1.setContents("first comment for test.");
+		c1.setTitle("올해 최고의 영화 !!");
+		c1.setContents("정말 재밌는 영화입니다. 꼭 관람하세요 !");
 		c1.setStars(5); // 숫자 입력하면 자동으로 별찍어주는 메소드로 구현하기
-		c1.setWriterName(uController.selectAll().get(c1.getId()).getName());
+		c1.setWriterName(uController.selectAll().get(c1.getWriterId()).getName());
 		c1.setWrittenTime(Calendar.getInstance());
 		c1.setUpdatedTime(Calendar.getInstance());
 
@@ -33,11 +33,11 @@ public class CommentController {
 		c2.setId(1);
 		c2.setWriterId(1);
 		c2.setMovieId(0);
-		c1.setPrintId(1);
-		c2.setTitle("TEST TITLE 2");
-		c2.setContents("second comment for test.");
-		c2.setStars(3); // 숫자 입력하면 자동으로 별찍어주는 메소드로 구현하기
-		c2.setWriterName(uController.selectAll().get(c2.getId()).getName());
+		c1.setPrintId(7);
+		c2.setTitle("별로에요");
+		c2.setContents("보다가 잠들 정도로 재미없는 영화. ");
+		c2.setStars(2); // 숫자 입력하면 자동으로 별찍어주는 메소드로 구현하기
+		c2.setWriterName(uController.selectAll().get(c2.getWriterId()).getName());
 		c2.setWrittenTime(Calendar.getInstance());
 		c2.setUpdatedTime(Calendar.getInstance());
 
@@ -46,16 +46,45 @@ public class CommentController {
 		c3.setWriterId(0);
 		c3.setMovieId(2);
 		c1.setPrintId(2);
-		c3.setTitle("TEST TITLE 3");
-		c3.setContents("third comment for test.");
-		c3.setStars(1); // 숫자 입력하면 자동으로 별찍어주는 메소드로 구현하기
-		c3.setWriterName(uController.selectAll().get(c3.getId()).getName());
+		c3.setTitle("재밌었어요 ");
+		c3.setContents("그럭저럭 재밌었습니다. \n 한번 쯤 봐도 괜찮을 영화");
+		c3.setStars(3); // 숫자 입력하면 자동으로 별찍어주는 메소드로 구현하기
+		c3.setWriterName(uController.selectAll().get(c3.getWriterId()).getName());
 		c3.setWrittenTime(Calendar.getInstance());
 		c3.setUpdatedTime(Calendar.getInstance());
 
+		CommentDTO c4 = new CommentDTO();
+		c4.setId(3);
+		c4.setWriterId(0);
+		c4.setMovieId(0);
+		c1.setPrintId(2);
+		c4.setTitle("잘 만들었네요");
+		c4.setContents("CG가 쩌네요. 또 보라고 하면 볼 수 \n 있을거같아요. 굿!!");
+		c4.setStars(4); // 숫자 입력하면 자동으로 별찍어주는 메소드로 구현하기
+		c4.setWriterName(uController.selectAll().get(c4.getWriterId()).getName());
+		c4.setWrittenTime(Calendar.getInstance());
+		c4.setUpdatedTime(Calendar.getInstance());
+
+		CommentDTO c5 = new CommentDTO();
+		c5.setId(4);
+		c5.setWriterId(2);
+		c5.setMovieId(3);
+		c1.setPrintId(2);
+		c5.setTitle("좋았어요.");
+		c5.setContents("가족이랑 봤는데 재밌었습니다. \n 감동적이네요 ~ ");
+		c5.setStars(4); // 숫자 입력하면 자동으로 별찍어주는 메소드로 구현하기
+		c5.setWriterName(uController.selectAll().get(c5.getWriterId()).getName());
+		c5.setWrittenTime(Calendar.getInstance());
+		c5.setUpdatedTime(Calendar.getInstance());
+	
+		
+		
+		
 		list.add(c1);
 		list.add(c2);
 		list.add(c3);
+		list.add(c4);
+		list.add(c5);
 
 	}
 
@@ -183,6 +212,13 @@ public class CommentController {
 		return myComments;
 	}
 	
+	public void deleteAccountComments(UserDTO logInUser) {
+		for(int i = 0; i<list.size();i++) {
+			if(logInUser.getId()==list.get(i).getWriterId()) {
+				list.remove(i);
+			}
+		}
+	}
 	
 	
 	
