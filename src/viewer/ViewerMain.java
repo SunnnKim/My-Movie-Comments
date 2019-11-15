@@ -79,6 +79,7 @@ public class ViewerMain {
 
 						// "1. Change Info 2. My Comments 3. Delete Account 4. back"
 						System.out.print("password ? : ");
+						sc.nextLine();
 						String password = sc.nextLine();
 						if(password.equals(logInUser.getPasssword())) {
 						choice = mViewer.showProfileMenu(sc, choice, logInUser);

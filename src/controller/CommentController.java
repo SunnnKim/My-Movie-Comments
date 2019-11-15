@@ -70,7 +70,7 @@ public class CommentController {
 		c.setId(id);
 		id = logInUser.getId();
 		c.setWriterId(logInUser.getId());
-		c.setPrintId(0);
+		//c.setPrintId(0);
 		c.setWriterName(logInUser.getName());
 		c.setWrittenTime(Calendar.getInstance());
 		c.setUpdatedTime(Calendar.getInstance());
@@ -90,6 +90,16 @@ public class CommentController {
 		}
 		return null;
 	}
+
+	public CommentDTO selectOneByPrintId(int id, ArrayList<CommentDTO> commentMovieList) {
+		
+		for (CommentDTO c : commentMovieList) {
+			if (c.getPrintId() == id) {
+				return c;
+			}
+		}
+		return null;
+	}
 	
 	public CommentDTO selectByMyComment(int id, ArrayList<CommentDTO>  myComment) {
 		
@@ -104,23 +114,34 @@ public class CommentController {
 	// 영화에 따른 코멘트 보기
 	public ArrayList<CommentDTO> selectCommentByMovie(MovieDTO selectedMovie,UserController uController) {
 
-		ArrayList<CommentDTO> commentMovieList = new ArrayList<CommentDTO>();
+		ArrayList<CommentDTO> commentByMovie = new ArrayList<CommentDTO>() ;
+		CommentDTO temp = new CommentDTO();
+		ArrayList<UserDTO> writers = uController.selectAll();
+		
 		int i = 0;
 		String userName ="";
-		for (CommentDTO c : list) {
+		for (int j =0 ; j< list.size(); j++) {
 			// 코멘트의 번호 다시정하기
-			if (selectedMovie.getId() == c.getMovieId()) {
-				c.setId(i);
-				userName = uController.selectAll().get(i).getName();
-				commentMovieList.add(c);
-				System.out.println("[" + commentMovieList.get(i).getId() + "] \"" + commentMovieList.get(i).getTitle()
-						+ "\" by " + userName);
+			if (selectedMovie.getId() == list.get(j).getMovieId()) {
+				temp = list.get(j);
+				for(UserDTO u : writers) {
+					if(u.getId() == temp.getWriterId()) {
+						userName = u.getName();
+					}
+				}
+				temp.setPrintId(i);
+				temp.setId(j);
+				System.out.println("[" + temp.getPrintId() + "] \""
+						+ temp.getTitle() + "\" by " + userName);
+				//commentByMovie.add(c);
+				
+				commentByMovie.add(temp);
 				i++;
 			}
 		}
 
 		// return commentListByMovie;
-		return commentMovieList;
+		return commentByMovie;
 
 	}
 
@@ -136,6 +157,7 @@ public class CommentController {
 	}
 
 	public void delete(CommentDTO cDTO) {
+		
 		list.remove(cDTO);
 
 	}

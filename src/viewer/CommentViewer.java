@@ -113,7 +113,7 @@ public class CommentViewer {
 		outer: while (true) {
 			System.out.println("-------------------------------");
 			// 코멘트 선택하기
-			selectedComment = cController.selectOne(choice, movieCommentList);
+			selectedComment = cController.selectOneByPrintId(choice, movieCommentList);
 			// 코멘트가 없을 때
 			if (selectedComment == null) {
 				System.out.println("! Wrong Access !");
@@ -121,7 +121,7 @@ public class CommentViewer {
 			}
 			// 코멘트 개별 출력
 			printCommentOne(selectedComment);
-			if (logInUser.getId() == selectedComment.getId()) {
+			if (logInUser.getId() == selectedComment.getWriterId()) {
 				System.out.println("1.update 2. delete 3. back");
 				System.out.print(">>> ");
 				choice = sc.nextInt();
@@ -196,7 +196,7 @@ public class CommentViewer {
 		sc.nextLine();
 		cController.write(c, logInUser, selectedMovie);
 		System.out.println("-------------------------------");
-		System.out.println("  Add Comments!");
+		System.out.println("Add Comments!");
 
 	}
 
@@ -268,7 +268,7 @@ public class CommentViewer {
 	private void printMyComments(ArrayList<CommentDTO> myComments, Scanner sc, MovieController mController) {
 		// TODO Auto-generated method stub
 		MovieDTO m;
-		if (myComments == null) {
+		if (myComments.size() == 0) {
 			System.out.println("! 0 Comments !");
 		}
 		else {

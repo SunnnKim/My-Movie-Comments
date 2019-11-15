@@ -78,7 +78,7 @@ public class UserController {
 					break inner;
 				}
 			}
-			if (!userId.matches("^[a-z0-9]*{3,10}$"))
+			if ( ! userId.matches("^[a-z]{1}[a-zA-Z0-9]{3,9}$"))
 				i++;
 			switch (i) {
 			case 0:
@@ -108,7 +108,8 @@ public class UserController {
 
 		// 비밀번호 정규 표현식
 		while (true) {
-			if (!password.matches("^[a-z0-9]*{4,15}$")) {
+			
+			if (!password.matches("^(?=.*[a-z])(?=.*[0-9])(?=.*\\d)[a-zA-Z\\d]{4,}$")) {
 				System.out.println("! PW must contain letter & number (length : 4~15) !");
 				System.out.print("* PASSWORD :");
 				password = sc.nextLine();
