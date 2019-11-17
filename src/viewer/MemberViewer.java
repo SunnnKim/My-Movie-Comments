@@ -8,8 +8,8 @@ import controller.UserController;
 import dto.UserDTO;
 
 public class MemberViewer { // = userViewer
-
 	// 로그인 + 회원정보와 관련된 메소드들
+
 	// 로그인 하기
 	public UserDTO logIn(Scanner sc, UserController uController) {
 		// 아이디 + 패스워드 맞으면
@@ -20,17 +20,13 @@ public class MemberViewer { // = userViewer
 		String inputId = sc.nextLine();
 		System.out.print("* PASSWORD : ");
 		String inputPw = sc.nextLine();
-
 		return uController.selectOne(inputId, inputPw);
-
 	}
 
 	public void joinUser(Scanner sc, UserController uController) {
-
 		// 모든 유저 담아오는 어레이리스트
 		ArrayList<UserDTO> uList = uController.selectAll();
 		UserDTO newUser = new UserDTO();
-
 		int id = uList.get(uList.size() - 1).getId() + 1;
 		newUser.setId(id); // id - auto increment
 		System.out.println("++++ JOIN ++++");
@@ -73,10 +69,8 @@ public class MemberViewer { // = userViewer
 		System.out.println("! PW must contain letter & number (length : 4~15) !");
 		System.out.print("* PASSWORD :");
 		String password = sc.nextLine();
-
 		// 비밀번호 정규 표현식
 		while (true) {
-
 			if (!password.matches("^(?=.*[a-z])(?=.*[0-9])(?=.*\\d)[a-zA-Z\\d]{4,}$")) {
 				System.out.println("! PW must contain letter & number (length : 4~15) !");
 				System.out.print("* PASSWORD :");
@@ -85,7 +79,6 @@ public class MemberViewer { // = userViewer
 				break;
 		}
 		newUser.setPasssword(password);
-
 		System.out.println("!Set jumin(YYMMDD) for Id/Pw  ex - 930610");
 		System.out.print("*  JUMIN   :");
 		String jumin = sc.nextLine();
@@ -100,13 +93,10 @@ public class MemberViewer { // = userViewer
 		newUser.setJumin(jumin);
 		System.out.print("*  N a m e :");
 		newUser.setName(sc.nextLine());
-
 		uController.join(newUser);
-
 	}
 
 	public boolean loginFail(UserDTO logInUser, Scanner sc, UserController uController) {
-
 		while (logInUser == null) {
 			System.out.println("Wrong ID or Password !!!");
 			System.out.println("-------------------------");
@@ -122,17 +112,11 @@ public class MemberViewer { // = userViewer
 				findIdPw(uController, sc, uController.selectAll());
 				return false;
 			}
-		}
-		return true;
-
+		}return true;
 	}
 
-//		// 로그인 실패할 경우
-
-	// 로그인 성공
-
+	// 로그인 실패할 경우
 	public void findIdPw(UserController uController, Scanner sc, ArrayList<UserDTO> uList) {
-
 		System.out.println("-------------------");
 		System.out.println("   Find ID / PW");
 		System.out.println("-------------------");
@@ -144,14 +128,11 @@ public class MemberViewer { // = userViewer
 			findMyId(sc, uList);
 		} else if (choice == 2) {
 			findMyPw(sc, uList);
-
 		}
-
 	}
 
 	// 아이디 및 패스워드로 찾기
 	public void findMyPw(Scanner sc, ArrayList<UserDTO> uList) {
-
 		System.out.println("==== Find Pw ====");
 		System.out.print(" I D ? : ");
 		String userID = sc.nextLine();
@@ -164,16 +145,13 @@ public class MemberViewer { // = userViewer
 				System.out.println("  P W  : " + uDTO.getPasssword());
 				return;
 			}
-
 		}
 		System.out.println("====================");
 		System.out.println(" Wrong Infomation !!");
 		System.out.println("====================");
-
 	}
 
 	public int showLoginMenu(Scanner sc, int choice) {
-
 		System.out.println("===========================");
 		System.out.println(" 1. LogIn 2. Join 3. Exit");
 		System.out.print(">>>>>>  ");
@@ -184,7 +162,6 @@ public class MemberViewer { // = userViewer
 			choice = -1;
 		}
 		return choice;
-
 	}
 
 	// 로그인 후 메인화면 출력 메세지
@@ -204,7 +181,6 @@ public class MemberViewer { // = userViewer
 
 	// 회원정보 목록 출력 메세지
 	public int showProfileMenu(Scanner sc, int choice, UserDTO logInUser) {
-
 		System.out.println(" \"" + logInUser.getName() + "\"'s Profile");
 		System.out.println("  I D   : " + logInUser.getUserId());
 		System.out.println("  P W   : " + logInUser.getPasssword());
@@ -224,7 +200,6 @@ public class MemberViewer { // = userViewer
 	}
 
 	public UserDTO update(UserController uController, UserDTO logInUser, Scanner sc) {
-
 		System.out.println("*** UPDATE MY PROFILE ***");
 		System.out.print(" Name : ");
 		logInUser.setName(sc.nextLine());
@@ -250,11 +225,9 @@ public class MemberViewer { // = userViewer
 		System.out.println(" Thank you for using My Movie Comment");
 		System.out.println("======================================");
 		return;
-
 	}
 
-	public boolean delete(UserDTO logInUser, UserController uController, 
-								Scanner sc, CommentController cController) {
+	public boolean delete(UserDTO logInUser, UserController uController, Scanner sc, CommentController cController) {
 		System.out.println("* Delete My Account *");
 		System.out.print(" delete account ? ( Y/N ) : ");
 		String answer = sc.nextLine();
@@ -262,23 +235,20 @@ public class MemberViewer { // = userViewer
 			System.out.print("password ? :");
 			answer = sc.nextLine();
 			if (answer.equals(logInUser.getPasssword())) {
-				uController.delete(logInUser); //회원계정삭제
+				uController.delete(logInUser); // 회원계정삭제
 				cController.deleteAccountComments(logInUser);
 				return true;
 			} else
 				System.out.println(" [ Wrong Password ]\n * cancel request *");
-
 		} else {
 			System.out.println(" * cancel request *");
 		}
 		// 계정이 삭제되면 true,삭제에 실패하면 false 반환
 		return false;
-
 	}
 
 	// 아이디로 찾기
 	public void findMyId(Scanner sc, ArrayList<UserDTO> uList) {
-
 		System.out.println("==== Find Id ====");
 		System.out.print(" Name? : ");
 		String name = sc.nextLine();
@@ -291,10 +261,8 @@ public class MemberViewer { // = userViewer
 				System.out.println(" P W  : " + uDTO.getPasssword());
 				return;
 			}
-
 		}
 		System.out.println("Id NOT exist !!!");
-
 	}
 
 	public boolean showLogInUser(Scanner sc, UserDTO logInUser, MemberViewer mViewer, UserController uController,
@@ -311,7 +279,7 @@ public class MemberViewer { // = userViewer
 				break;
 			case 2:
 				// 계정 삭제
-				logOut = mViewer.delete(logInUser, uController, sc,cController);
+				logOut = mViewer.delete(logInUser, uController, sc, cController);
 				break;
 			case 3:
 				// back to main
@@ -319,7 +287,6 @@ public class MemberViewer { // = userViewer
 			default:
 				System.out.println("! Wrong Access !");
 				break;
-
 			}
 		} else {
 			System.out.println("! wrong password !");

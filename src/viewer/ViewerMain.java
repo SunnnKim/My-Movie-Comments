@@ -33,12 +33,10 @@ public class ViewerMain {
 				// 로그인 성공
 				System.out.println("===============================");
 				System.out.println(" \" " + logInUser.getName() + " \" just logged in!");
-
 				while (true) {
 					// 로그인 후 메인 화면
 					// 1.Movie list 2.My profile 3.Log Out
 					choice = mViewer.showMainMenu(sc, choice);
-
 					// 1.Movie list : 영화목록 + 코멘트작성
 					if (choice == 1) {
 						System.out.println(" Movies & Comments");
@@ -47,17 +45,12 @@ public class ViewerMain {
 						if (choice == 1) { // Movies&Comment
 							// 영화목록에서 영화 고르기 = selectedMovie
 							MovieDTO selectedMovie = cViewer.selectMovieForComment(sc, mController);
-
 							// 1. write comment 2. show comments 3. back
 							cViewer.commentFunctionMenu(sc, mController, selectedMovie, cController, logInUser,uController);
 							// 위의 코드는 3번을 누르면 종료된다.
-
 						} else if (choice == 2) {
 							// 2. My Comments
-
-							// 내가 쓴 코멘트 보기 !!!
 							cViewer.showMyComments(sc, cController, logInUser, mController);
-
 						} else if (choice == 3) {
 							// 뒤로가기
 						} else {
@@ -72,7 +65,6 @@ public class ViewerMain {
 							System.out.println("Account Deleted! ");
 							break login;
 						}
-						
 					} else if (choice == 3) {
 						// 로그아웃
 						System.out.println("=== logged out ===");
@@ -82,23 +74,18 @@ public class ViewerMain {
 						System.out.println("! Wrong Access !");
 					}
 				}
-
 //========================================================================================================================
 				// 1.login 2. join 3. exit
 			} else if (choice == 2) {
-
 				// 회원가입
 				mViewer.joinUser(sc,uController);
 			} else if (choice == 3) {
 				// 프로그램 종료
 				mViewer.exit();
 				break program;
-
 			} else { // 잘못된 접근
 				System.out.println("! Wrong Access !");
-
 			}
-
 		}
 		sc.close();
 	}
