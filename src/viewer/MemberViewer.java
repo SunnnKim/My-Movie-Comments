@@ -36,7 +36,7 @@ public class MemberViewer { // = userViewer
 		outer: while (true) {
 			int i = 0, j = 0;
 			inner: for (UserDTO u : uList) {
-				if (userId.equals(u.getName())) {
+				if (userId.equals(u.getUserId())) {
 					i++;
 					j++;
 					break inner;
@@ -45,24 +45,24 @@ public class MemberViewer { // = userViewer
 			if (!userId.matches("^[a-z]{1}[a-zA-Z0-9]{3,9}$"))
 				i++;
 			switch (i) {
-			case 0:
-				break outer;
-			case 1:
-				if (j == 1) {
+				case 0:
+					break outer;
+				case 1:
+					if (j == 1) {
+						System.out.println("! I D Exist !");
+						System.out.print("*   I  D   :");
+						userId = sc.nextLine();
+					} else {
+						System.out.println(" ! 4 ~ 10 letter (contains a~z & 0~9)!");
+						System.out.print("*   I  D   :");
+						userId = sc.nextLine();
+					}
+					break;
+				case 2:
 					System.out.println("! I D Exist !");
 					System.out.print("*   I  D   :");
 					userId = sc.nextLine();
-				} else {
-					System.out.println(" ! 4 ~ 10 letter (contains a~z & 0~9)!");
-					System.out.print("*   I  D   :");
-					userId = sc.nextLine();
-				}
-				break;
-			case 2:
-				System.out.println("! I D Exist !");
-				System.out.print("*   I  D   :");
-				userId = sc.nextLine();
-				break;
+					break;
 			}
 		}
 		newUser.setUserId(userId);

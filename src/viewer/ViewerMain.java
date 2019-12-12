@@ -85,6 +85,7 @@ public class ViewerMain {
 				break program;
 			} else { // 잘못된 접근
 				System.out.println("! Wrong Access !");
+				sc = new Scanner(System.in);
 			}
 		}
 		sc.close();
